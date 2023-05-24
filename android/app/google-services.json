@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "599267578761",
+    "project_id": "masqarad-eb0be",
+    "storage_bucket": "masqarad-eb0be.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:599267578761:android:1624e373eb3fd9fda84758",
+        "android_client_info": {
+          "package_name": "com.example.maskarad_online_shop"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "599267578761-c64rq0jhptndv6p971mvgevh69if1njp.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDjgmJ2i0ME1wZ3N7H18vw3crw9ICpZDws"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "599267578761-c64rq0jhptndv6p971mvgevh69if1njp.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
