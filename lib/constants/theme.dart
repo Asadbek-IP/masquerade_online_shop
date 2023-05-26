@@ -6,6 +6,8 @@ ThemeData themeData = ThemeData(
   primaryColor: const Color(0xFF006ad7),
   scaffoldBackgroundColor: Colors.white,
   appBarTheme: const AppBarTheme(
+      titleTextStyle: TextStyle(
+          color: Colors.black, fontSize: 18, fontWeight: FontWeight.w700),
       color: Colors.white,
       elevation: 0,
       iconTheme: IconThemeData(color: Colors.black)),

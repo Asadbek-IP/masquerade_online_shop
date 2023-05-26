@@ -1,10 +1,14 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:maskarad_online_shop/constants/routes.dart';
 
 import 'package:maskarad_online_shop/firebase_helper/firebase_firestore_helper/firebase_firestore_helper.dart';
 import 'package:maskarad_online_shop/models/categoriy_model/categoriy_model.dart';
+import 'package:maskarad_online_shop/provider/app_provider.dart';
+import 'package:maskarad_online_shop/screens/categories_view/category_view.dart';
 import 'package:maskarad_online_shop/screens/product_details/product_details.dart';
 import 'package:maskarad_online_shop/widgets/top_titles.dart';
+import 'package:provider/provider.dart';
 
 import '../../constants/constants.dart';
 import '../../models/product_model/product_model.dart';
@@ -29,7 +33,7 @@ class _HomeState extends State<Home> {
 
     categoriesList = await FirebaseFirestoreHelper.instance.getCategories();
     bestProductsList = await FirebaseFirestoreHelper.instance.getBestProducts();
-
+    bestProductsList.shuffle();
     setState(() {
       isLoading = false;
     });
@@ -38,6 +42,7 @@ class _HomeState extends State<Home> {
   @override
   void initState() {
     getCategoriesList();
+    Provider.of<AppProvider>(context, listen: false).getUserInfoFirebase();
     super.initState();
   }
 
@@ -80,15 +85,26 @@ class _HomeState extends State<Home> {
                       children: categoriesList
                           .map((e) => Padding(
                                 padding: EdgeInsets.only(left: 8),
-                                child: Card(
-                                  color: Colors.white,
-                                  elevation: 3,
-                                  shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(20)),
-                                  child: SizedBox(
-                                      width: 100,
-                                      height: 100,
-                                      child: Image.network(e.image)),
+                                child: CupertinoButton(
+                                  padding: EdgeInsets.zero,
+                                  onPressed: () {
+                                    Routes.instanse.push(
+                                        CategoryView(
+                                          categoryModel: e,
+                                        ),
+                                        context);
+                                  },
+                                  child: Card(
+                                    color: Colors.white,
+                                    elevation: 3,
+                                    shape: RoundedRectangleBorder(
+                                        borderRadius:
+                                            BorderRadius.circular(20)),
+                                    child: SizedBox(
+                                        width: 100,
+                                        height: 100,
+                                        child: Image.network(e.image)),
+                                  ),
                                 ),
                               ))
                           .toList(),
@@ -112,6 +128,7 @@ class _HomeState extends State<Home> {
                       horizontal: 12,
                     ),
                     child: GridView.builder(
+                        padding: EdgeInsets.only(bottom: 50),
                         physics: NeverScrollableScrollPhysics(),
                         itemCount: bestProductsList.length,
                         shrinkWrap: true,

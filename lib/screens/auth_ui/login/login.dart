@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maskarad_online_shop/constants/constants.dart';
 import 'package:maskarad_online_shop/constants/routes.dart';
 import 'package:maskarad_online_shop/firebase_helper/firebase_auth_helper.dart/firebase_auth_helper.dart';
+import 'package:maskarad_online_shop/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:maskarad_online_shop/screens/home/home.dart';
 import 'package:maskarad_online_shop/widgets/primary_button.dart';
 import 'package:maskarad_online_shop/widgets/top_titles.dart';
@@ -68,7 +69,8 @@ class _LoginState extends State<Login> {
                       _emailController.text, _passController.text, context);
                   if (isLogin) {
                     // ignore: use_build_context_synchronously
-                    Routes.instanse.pushAndRemoveUtil(const Home(), context);
+                    Routes.instanse
+                        .pushAndRemoveUtil(const CustomBottomBar(), context);
                   }
                 }
               },

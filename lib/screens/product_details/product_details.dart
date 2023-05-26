@@ -3,8 +3,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:flutter/src/widgets/placeholder.dart';
 import 'package:like_button/like_button.dart';
+import 'package:maskarad_online_shop/constants/constants.dart';
+import 'package:maskarad_online_shop/constants/routes.dart';
 import 'package:maskarad_online_shop/models/product_model/product_model.dart';
+import 'package:maskarad_online_shop/provider/app_provider.dart';
+import 'package:maskarad_online_shop/screens/cart_screen/cart_screen.dart';
+import 'package:maskarad_online_shop/screens/favorite_screen/favorite_screen.dart';
 import 'package:maskarad_online_shop/widgets/primary_button.dart';
+import 'package:provider/provider.dart';
+
+import '../check_out/check_out.dart';
 
 class ProductDetails extends StatefulWidget {
   final ProductModel singleProduct;
@@ -18,10 +26,15 @@ class _ProductDetailsState extends State<ProductDetails> {
   int qty = 1;
   @override
   Widget build(BuildContext context) {
+    AppProvider appProvider = Provider.of<AppProvider>(context, listen: false);
     return Scaffold(
       appBar: AppBar(
         actions: [
-          IconButton(onPressed: () {}, icon: Icon(Icons.shopping_cart))
+          IconButton(
+              onPressed: () {
+                Routes.instanse.push(CartScreen(), context);
+              },
+              icon: Icon(Icons.shopping_cart))
         ],
       ),
       body: SingleChildScrollView(
@@ -45,14 +58,27 @@ class _ProductDetailsState extends State<ProductDetails> {
                     widget.singleProduct.name,
                     style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
                   ),
-                  LikeButton(
-                      // isLiked: widget.singleProduct.isFavourite,
-                      // onTap: (isLiked) async {
-                      //   setState(() {
-                      //     widget.singleProduct.isFavourite = isLiked;
-                      //   });
-                      // },
-                      ),
+                  IconButton(
+                      onPressed: () {
+                        setState(() {
+                          widget.singleProduct.isFavourite =
+                              !widget.singleProduct.isFavourite;
+                        });
+                        if (widget.singleProduct.isFavourite) {
+                          appProvider.addFavoriteProduct(widget.singleProduct);
+                        } else {
+                          appProvider
+                              .removeFavoriteProduct(widget.singleProduct);
+                        }
+                      },
+                      icon: Icon(
+                        widget.singleProduct.isFavourite
+                            ? Icons.favorite
+                            : Icons.favorite_border_outlined,
+                        color: widget.singleProduct.isFavourite
+                            ? Colors.red
+                            : Colors.grey,
+                      ))
                 ],
               ),
               SizedBox(
@@ -100,7 +126,12 @@ class _ProductDetailsState extends State<ProductDetails> {
                     child: SizedBox(
                       height: 45,
                       child: OutlinedButton(
-                          onPressed: () {}, child: Text("Savatcha  qo'shish")),
+                          onPressed: () {
+                            appProvider.addCartProduct(
+                                widget.singleProduct.copyWith(qty: qty));
+                            showMessage("Savatchaga qo'shildi");
+                          },
+                          child: Text("Savatcha  qo'shish")),
                     ),
                   ),
                   SizedBox(
@@ -109,10 +140,18 @@ class _ProductDetailsState extends State<ProductDetails> {
                   Expanded(
                     child: PrimaryButton(
                       title: "Sotib olish",
-                      onPressed: () {},
+                      onPressed: () {
+                        ProductModel productModel =
+                            widget.singleProduct.copyWith(qty: qty);
+                        Routes.instanse.push(
+                            Checkout(singleProduct: productModel), context);
+                      },
                     ),
                   )
                 ],
+              ),
+              SizedBox(
+                height: 50,
               ),
             ],
           ),
