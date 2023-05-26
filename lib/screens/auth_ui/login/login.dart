@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:maskarad_online_shop/constants/constants.dart';
 import 'package:maskarad_online_shop/constants/routes.dart';
 import 'package:maskarad_online_shop/firebase_helper/firebase_auth_helper.dart/firebase_auth_helper.dart';
+import 'package:maskarad_online_shop/screens/auth_ui/sign_up/sign_up.dart';
 import 'package:maskarad_online_shop/screens/custom_bottom_bar/custom_bottom_bar.dart';
 import 'package:maskarad_online_shop/screens/home/home.dart';
 import 'package:maskarad_online_shop/widgets/primary_button.dart';
@@ -90,7 +91,9 @@ class _LoginState extends State<Login> {
                       "Ro'yxatdan o'tish",
                       style: TextStyle(color: Theme.of(context).primaryColor),
                     ),
-                    onPressed: () {}))
+                    onPressed: () {
+                      Routes.instanse.push(SignUp(), context);
+                    }))
           ],
         ),
       ),

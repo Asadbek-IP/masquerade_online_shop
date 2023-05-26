@@ -131,7 +131,7 @@ class _ProductDetailsState extends State<ProductDetails> {
                                 widget.singleProduct.copyWith(qty: qty));
                             showMessage("Savatchaga qo'shildi");
                           },
-                          child: Text("Savatcha  qo'shish")),
+                          child: Text("Savatchaga  qo'shish")),
                     ),
                   ),
                   SizedBox(

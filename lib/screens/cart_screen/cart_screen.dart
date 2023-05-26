@@ -31,7 +31,7 @@ class _CartScreenState extends State<CartScreen> {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   const Text(
-                    "Total",
+                    "Barchasi",
                     style: TextStyle(
                       fontSize: 18.0,
                       fontWeight: FontWeight.bold,
@@ -70,7 +70,7 @@ class _CartScreenState extends State<CartScreen> {
         centerTitle: true,
         // backgroundColor: Colo,
         title: const Text(
-          "Cart Screen",
+          "Savatcha",
           style: TextStyle(
             color: Colors.black,
           ),
